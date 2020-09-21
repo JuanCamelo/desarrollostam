@@ -5,15 +5,12 @@ const drawerWidth = 80;
 const HomePageStyles = makeStyles((theme) => ({
 
   container: {
-    display: "block",
-    width: "81.5%",
-    minWidth: "80%",
-    paddingLeft: "24px",
-    paddingRight: "24px",
-    marginLeft: "100px",
-    marginRight: "0px",
-    marginTop: "20px",
+    display: "block",   
     position: "initial",
+    backgroundColor:'#f9f9f9',
+    margin: '-1% 6.4%',
+    padding: '4% 0% 0% 3.6%', 
+    width:'90%'
   },
 
   root: {

@@ -98,7 +98,7 @@ function ToolBar(props) {
               </ListItem>
             </Link>
     
-            <Link to={"/homepage"} style={{ textDecoration: 'none' }}>
+            <Link to={"/users"} style={{ textDecoration: 'none' }}>
               <ListItem button onClick= {handleArrowUser}>
                 <ListItemIcon className={arrowUser ? classes.leftIconC : classes.leftIcon}>
                   <SvgUser />

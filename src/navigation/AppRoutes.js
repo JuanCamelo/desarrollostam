@@ -12,6 +12,7 @@ import ScrollToTop from "../domain/ScrollToTop";
 import MainLayout from "../components/layout/MainLayout";
 import NotFound from "../components/notFound";
 import Dashboard from "../components/dashboard/Dashboard";
+import HomeUsers from "../components/adminUsers/HomeUsers";
 
 
 
@@ -22,7 +23,8 @@ export default function AppRoutes(props) {
           <ScrollToTop />
           <Switch>
           <AppRouteComplement exact={true} path="/homePage" component={Dashboard} layout={MainLayout} />
-          <AppRouteComplement exact={true} path="/notFound" component={NotFound} layout={MainLayout} />
+          <AppRouteComplement exact={true} path="/users" component={HomeUsers} layout={MainLayout} />
+          <AppRouteComplement exact={true} path="/notFound" component={NotFound} layout={MainLayout} />          
           <Redirect to="/notFound" />
           </Switch>
           </Router>
