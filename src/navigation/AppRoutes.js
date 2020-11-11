@@ -13,7 +13,7 @@ import MainLayout from "../components/layout/MainLayout";
 import NotFound from "../components/notFound";
 import Dashboard from "../components/dashboard/Dashboard";
 import HomeUsers from "../components/adminUsers/HomeUsers";
-
+import Register from "../components/Register/Register"
 
 
 
@@ -24,6 +24,7 @@ export default function AppRoutes(props) {
           <Switch>
           <AppRouteComplement exact={true} path="/homePage" component={Dashboard} layout={MainLayout} />
           <AppRouteComplement exact={true} path="/users" component={HomeUsers} layout={MainLayout} />
+          <AppRouteComplement exact={true} path="/Register" component={Register} layout={MainLayout} />
           <AppRouteComplement exact={true} path="/notFound" component={NotFound} layout={MainLayout} />          
           <Redirect to="/notFound" />
           </Switch>

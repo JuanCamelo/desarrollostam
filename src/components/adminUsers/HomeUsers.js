@@ -2,10 +2,10 @@ import React from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import AdminUser from "./AdminUsers";
+import ListUsers from "./AdminUsers"
 import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
+
 
 const AntTabs = withStyles({
   root: {
@@ -71,7 +71,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
@@ -108,11 +108,12 @@ export default function CustomizedTabs() {
         </div>
         <div>
           <TabPanel value={value} index={0}>
-            <AdminUser />
+           
+            <ListUsers />
           </TabPanel>
-          <TabPanel value={value} index={1}>
-            Item Two
-          </TabPanel>
+          <TabPanel value={value} index={1}>         
+           Item tow
+           </TabPanel>
           <TabPanel value={value} index={2}>
             Item Three
           </TabPanel>

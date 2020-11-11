@@ -4,7 +4,6 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableContainer from '@material-ui/core/TableContainer';
-import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,21 +12,21 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import TableHead from '@material-ui/core/TableHead';
-import { Edit} from '@material-ui/icons';
+import { Edit } from '@material-ui/icons';
 import Avatar from '../avatar/Avatar';
 import axios from "axios";
 import AlertDelete from '../alertdelete/Alertdelete';
-import { StyledTableCellEmp, StyledTableCell,  StyledTableRow} from '../../styles/adminUser/Userliststiles';
+import { StyledTableCellEmp, StyledTableCell, StyledTableRow } from '../../styles/adminUser/Userliststiles';
 import * as _ from "lodash";
 import ListEmployeeStyle from "../../styles/adminUser/ListEmployeStyle";
 import SyncAltIcon from '@material-ui/icons/SyncAlt';
 import Grid from '@material-ui/core/Grid';
-import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
+
 
 
 
 const useStyles2 = makeStyles({
- 
+
   container: {
     display: 'flex',
   },
@@ -58,7 +57,7 @@ TablePaginationActions.propTypes = {
 function TablePaginationActions(props) {
   const classes = useStyles1();
   const theme = useTheme();
-  const {count, page, rowsPerPage, onChangePage } = props;
+  const { count, page, rowsPerPage, onChangePage } = props;
   const handleFirstPageButtonClick = (event) => {
     onChangePage(event, 0);
   };
@@ -74,11 +73,11 @@ function TablePaginationActions(props) {
   const handleLastPageButtonClick = (event) => {
     onChangePage(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   };
-  
+
   return (
-    
-    <div className={classes.root}>    
-       
+
+    <div className={classes.root}>
+
       <IconButton
         onClick={handleFirstPageButtonClick}
         disabled={page === 0}
@@ -103,10 +102,10 @@ function TablePaginationActions(props) {
       >
         {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
       </IconButton>
-      </div>
-     
-  
-    
+    </div>
+
+
+
   );
 }
 
@@ -143,7 +142,7 @@ const sort_lists = (key, list, inverse) =>
     : [...list].sort((a, b) => (a[key] > b[key] ? 1 : a[key] < b[key] ? -1 : 0))
 
 
-export default function CustomPaginationActionsTable() {
+export default function UserTable() {
   const classes = useStyles2();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -164,23 +163,23 @@ export default function CustomPaginationActionsTable() {
 
 
 
-  const numerUser = usersss.map(f=> f.acciones).filter(x => x ==='Activo').length;
-     
+  const numerUser = usersss.map(f => f.acciones).filter(x => x === 'Activo').length;
 
-  const handleSort =(columnName)=>{    
+
+  const handleSort = (columnName) => {
     let newSortedList = sort_lists(columnName, usersss)
     if (newSortedList[0] === usersss[0]) newSortedList = sort_lists(columnName, usersss, true)
-    setUsers(newSortedList)   
+    setUsers(newSortedList)
   };
- 
+
 
 
   const handleSort1 = (columnName) => {
     let nameSorterp;
-     
+
     if (columnName === 'acciones') {
       nameSorterp = user => user.name.toLowerCase();
-      console.log(nameSorterp ,'desdes la tabla')
+      console.log(nameSorterp, 'desdes la tabla')
     }
     else if (columnName === 'usuarios') {
       nameSorterp = user => user.companyemail;
@@ -232,249 +231,264 @@ export default function CustomPaginationActionsTable() {
 
 
   return (
-    <React.Fragment>
-     <SwipeableDrawer>
-      <TableContainer>
-        <Table>        
-          <TableHead>   
-            <TableRow>           
-              <StyledTableCellEmp key={"rol-acciones"} style={{ width: "18%" }}>
-                <div
-                  className={classesMainPage.imgOrder}
-                  onClick={() => handleSort("acciones")}                 
+
+
+    <Grid container spacing={0} >
+      <Grid item xs={12}>
+        <div style={{marginTop:'12%'}}>
+        <h1>Administración de usuarios</h1>
+        </div>
+       
+      </Grid>
+      <Grid item xs={12}>
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <StyledTableCellEmp key={"rol-acciones"} style={{ width: "18%" }}>
+                  <div
+                    className={classesMainPage.imgOrder}
+                    onClick={() => handleSort("acciones")}
+                  >
+                    <span>Acciones</span>
+                    {columnToSortL === "acciones" ? (
+                      sortDirection === "asc" ? (
+                        <SyncAltIcon
+                          style={{
+                            cursor: 'pointer',
+                            width: "18px",
+                            transform: "rotate(90deg)",
+                            margin: "2%",
+                          }}
+                        />
+                      ) : (
+                          <SyncAltIcon
+                            style={{
+                              cursor: 'pointer',
+                              width: "18px",
+                              transform: "rotate(90deg)",
+                              margin: "2%",
+                            }}
+                          />
+                        )
+                    ) : (
+                        <SyncAltIcon
+                          style={{
+                            cursor: 'pointer',
+                            width: "18px",
+                            transform: "rotate(90deg)",
+                            margin: "2%",
+                          }}
+                        />
+                      )}
+                  </div>
+                </StyledTableCellEmp>
+                <StyledTableCellEmp
+                  key={"nombre-usuarios"}
+                  style={{ width: "30%" }}
+                >
+                  <div
+                    className={classesMainPage.imgOrder}
+                    onClick={() => handleSort("usuarios")}
+                  >
+                    <span>Usuarios</span>
+                    {columnToSortL === "usuarios" ? (
+                      sortDirection === "asc" ? (
+                        <SyncAltIcon
+                          style={{
+                            cursor: 'pointer',
+                            width: "18px",
+                            transform: "rotate(90deg)",
+                            margin: "2%",
+                          }}
+                        />
+                      ) : (
+                          <SyncAltIcon
+                            style={{
+                              cursor: 'pointer',
+                              width: "18px",
+                              transform: "rotate(90deg)",
+                              margin: "2%",
+                            }}
+                          />
+                        )
+                    ) : (
+                        <SyncAltIcon
+                          style={{
+                            cursor: 'pointer',
+                            width: "18px",
+                            transform: "rotate(90deg)",
+                            margin: "2%",
+                          }}
+                        />
+                      )}
+                  </div>
+                </StyledTableCellEmp>
+                <StyledTableCellEmp
+                  key={"email-usuarios"}
+                  style={{ width: "35%" }}
+                >
+                  <div
+                    className={classesMainPage.imgOrder}
+                    onClick={() => handleSort("email")}
+                  >
+                    <span>Email</span>
+                    {columnToSortL === "email" ? (
+                      sortDirection === "asc" ? (
+                        <SyncAltIcon
+                          style={{
+                            cursor: 'pointer',
+                            width: "18px",
+                            transform: "rotate(90deg)",
+                            margin: "2%",
+                          }}
+                        />
+                      ) : (
+                          <SyncAltIcon
+                            style={{
+                              cursor: 'pointer',
+                              width: "18px",
+                              transform: "rotate(90deg)",
+                              margin: "2%",
+                            }}
+                          />
+                        )
+                    ) : (
+                        <SyncAltIcon
+                          style={{
+                            cursor: 'pointer',
+                            width: "18px",
+                            transform: "rotate(90deg)",
+                            margin: "2%",
+                          }}
+                        />
+                      )}
+                  </div>
+                </StyledTableCellEmp>
+                <StyledTableCellEmp key={"rol-usuarios"} style={{ width: "20%" }}>
+                  <div
+                    className={classesMainPage.imgOrder}
+                    onClick={() => handleSort("rol")}
+                  >
+                    <span>Rol Usuario</span>
+                    {columnToSortL === "rol" ? (
+                      sortDirection === "asc" ? (
+                        <SyncAltIcon
+                          style={{
+                            cursor: 'pointer',
+                            width: "11%",
+                            transform: "rotate(90deg)",
+                            margin: "2%",
+                          }}
+                        />
+                      ) : (
+                          <SyncAltIcon
+                            style={{
+                              cursor: 'pointer',
+                              width: "11%",
+                              transform: "rotate(90deg)",
+                              margin: "2%",
+                            }}
+                          />
+                        )
+                    ) : (
+                        <SyncAltIcon
+                          style={{
+                            cursor: 'pointer',
+                            width: "11%",
+                            transform: "rotate(90deg)",
+                            margin: "2%",
+                          }}
+                        />
+                      )}
+                  </div>
+                </StyledTableCellEmp>
+                <StyledTableCellEmp
+                  key={"accion-empleado"}
+                  style={{ width: "20%" }}
                 >
                   <span>Acciones</span>
-                  {columnToSortL === "acciones" ? (
-                    sortDirection === "asc" ? (
-                      <SyncAltIcon
-                        style={{
-                          cursor: 'pointer',
-                          width: "18px",
-                          transform: "rotate(90deg)",
-                          margin: "2%",
-                        }}
-                      />
-                    ) : (
-                      <SyncAltIcon
-                        style={{
-                          cursor: 'pointer',
-                          width: "18px",
-                          transform: "rotate(90deg)",
-                          margin: "2%",
-                        }}
-                      />
-                    )
-                  ) : (
-                    <SyncAltIcon
-                      style={{
-                        cursor: 'pointer',
-                        width: "18px",
-                        transform: "rotate(90deg)",
-                        margin: "2%",
-                      }}
-                    />
-                  )}
-                </div>
-              </StyledTableCellEmp>
-              <StyledTableCellEmp
-                key={"nombre-usuarios"}
-                style={{ width: "30%" }}
-              >
-                <div
-                  className={classesMainPage.imgOrder}
-                  onClick={() => handleSort("usuarios")}
-                >
-                  <span>Usuarios</span>
-                  {columnToSortL === "usuarios" ? (
-                    sortDirection === "asc" ? (
-                      <SyncAltIcon
-                        style={{
-                          cursor: 'pointer',
-                          width: "18px",
-                          transform: "rotate(90deg)",
-                          margin: "2%",
-                        }}
-                      />
-                    ) : (
-                      <SyncAltIcon
-                        style={{
-                          cursor: 'pointer',
-                          width: "18px",
-                          transform: "rotate(90deg)",
-                          margin: "2%",
-                        }}
-                      />
-                    )
-                  ) : (
-                    <SyncAltIcon
-                      style={{
-                        cursor: 'pointer',
-                        width: "18px",
-                        transform: "rotate(90deg)",
-                        margin: "2%",
-                      }}
-                    />
-                  )}
-                </div>
-              </StyledTableCellEmp>
-              <StyledTableCellEmp
-                key={"email-usuarios"}
-                style={{ width: "35%" }}
-              >
-                <div
-                  className={classesMainPage.imgOrder}
-                  onClick={() => handleSort("email")}
-                >
-                  <span>Email</span>
-                  {columnToSortL === "email" ? (
-                    sortDirection === "asc" ? (
-                      <SyncAltIcon
-                        style={{
-                          cursor: 'pointer',
-                          width: "18px",
-                          transform: "rotate(90deg)",
-                          margin: "2%",
-                        }}
-                      />
-                    ) : (
-                      <SyncAltIcon
-                        style={{
-                          cursor: 'pointer',
-                          width: "18px",
-                          transform: "rotate(90deg)",
-                          margin: "2%",
-                        }}
-                      />
-                    )
-                  ) : (
-                    <SyncAltIcon
-                      style={{
-                        cursor: 'pointer',
-                        width: "18px",
-                        transform: "rotate(90deg)",
-                        margin: "2%",
-                      }}
-                    />
-                  )}
-                </div>
-              </StyledTableCellEmp>
-              <StyledTableCellEmp key={"rol-usuarios"} style={{ width: "20%" }}>
-                <div
-                  className={classesMainPage.imgOrder}
-                  onClick={() => handleSort("rol")}
-                >
-                  <span>Rol Usuario</span>
-                  {columnToSortL === "rol" ? (
-                    sortDirection === "asc" ? (
-                      <SyncAltIcon
-                        style={{
-                          cursor: 'pointer',
-                          width: "11%",
-                          transform: "rotate(90deg)",
-                          margin: "2%",
-                        }}
-                      />
-                    ) : (
-                      <SyncAltIcon
-                        style={{
-                          cursor: 'pointer',
-                          width: "11%",
-                          transform: "rotate(90deg)",
-                          margin: "2%",
-                        }}
-                      />
-                    )
-                  ) : (
-                    <SyncAltIcon
-                      style={{
-                        cursor: 'pointer',
-                        width: "11%",
-                        transform: "rotate(90deg)",
-                        margin: "2%",
-                      }}
-                    />
-                  )}
-                </div>
-              </StyledTableCellEmp>
-              <StyledTableCellEmp
-                key={"accion-empleado"}
-                style={{ width: "20%" }}
-              >
-                <span>Acciones</span>
-              </StyledTableCellEmp>
-            </TableRow>
-          </TableHead>
+                </StyledTableCellEmp>
+              </TableRow>
+            </TableHead>
 
-          <TableBody>
-            {(rowsPerPage > 0
-              ? _.orderBy(usersss, columnToSort, sortDirection).slice(
+            <TableBody>
+              {(rowsPerPage > 0
+                ? _.orderBy(usersss, columnToSort, sortDirection).slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
                 )
-              : _.orderBy(usersss, columnToSort, sortDirection)
-            ).map((row) => (
-              <StyledTableRow key={row.usuarios}>
-                <StyledTableCell>{row.acciones}</StyledTableCell>
-                <StyledTableCell>
-                  <div className={classes.container}>
-                    <div>
-                      <Avatar userAvatar={row.usuarios} imgavatar={row.img} />
+                : _.orderBy(usersss, columnToSort, sortDirection)
+              ).map((row) => (
+                <StyledTableRow key={row.usuarios}>
+                  <StyledTableCell>{row.acciones}</StyledTableCell>
+                  <StyledTableCell>
+                    <div className={classes.container}>
+                      <div>
+                        <Avatar userAvatar={row.usuarios} imgavatar={row.img} />
+                      </div>
+                      <div className={classes.divName}>{row.usuarios}</div>
                     </div>
-                    <div className={classes.divName}>{row.usuarios}</div>
-                  </div>
-                </StyledTableCell>
-                <StyledTableCell>{row.email}</StyledTableCell>
-                <StyledTableCell>{row.rol}</StyledTableCell>
-                <StyledTableCell>
-                  <AlertDelete
-                    rolUser={row.acciones}
-                    textTitle={title}
-                    textComentario={Mensage}
-                    nameUser={row.usuarios}
-                  />
+                  </StyledTableCell>
+                  <StyledTableCell>{row.email}</StyledTableCell>
+                  <StyledTableCell>{row.rol}</StyledTableCell>
+                  <StyledTableCell>
+                    <AlertDelete
+                      rolUser={row.acciones}
+                      textTitle={title}
+                      textComentario={Mensage}
+                      nameUser={row.usuarios}
+                    />
                   &nbsp;&nbsp;&nbsp;
                   <Edit />
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-            {emptyRows > 0 && (
-              <TableRow style={{ height: 1 * emptyRows }}>
-                <StyledTableCell colSpan={6} />
-              </TableRow>
-            )}
-          </TableBody>
-            
-        </Table>
-      </TableContainer>
-      <Grid container spacing={3}>
-        <Grid  item xs={6}>
-          {numerUser} Usuarios activos
-        </Grid>
-        <Grid item xs={6} >        
-        <TablePagination                          
-                  style={{ backgroundColor: "#f9f9f9" }}
-                  labelRowsPerPage='Filas'
-                  rowsPerPageOptions={[10, 25, { label: "ALL", value: -1 }]}
-                  count={rows.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  SelectProps={{
-                    inputProps: { "aria-label": "Rows per page" },
-                    native: true,
-                  }}
-                  onChangePage={handleChangePage}
-                  onChangeRowsPerPage={handleChangeRowsPerPage}
-                  ActionsComponent={TablePaginationActions}
-              /> 
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 1 * emptyRows }}>
+                  <StyledTableCell colSpan={6} />
+                </TableRow>
+              )}
+            </TableBody>
 
-        
-        </Grid>
+          </Table>
+        </TableContainer>
       </Grid>
-      </SwipeableDrawer>
-    </React.Fragment>
+     
+        <Grid item xs={6} >
+          <div style={{marginLeft: '25px', marginTop:'123px'}}>
+          {numerUser} Usuarios activos
+          </div>
+          
+        </Grid>
+        <Grid item xs={6} style={{textAlign:'-webkit-right', marginTop:'100px'}} >
+          <TablePagination
+            style={{ backgroundColor: "#f9f9f9" }}
+            labelRowsPerPage='Filas'
+            rowsPerPageOptions={[10, 25, { label: "ALL", value: -1 }]}
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            SelectProps={{
+              inputProps: { "aria-label": "Rows per page" },
+              native: true,
+            }}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+            ActionsComponent={TablePaginationActions}
+          />
+        </Grid>
+     
+
+    </Grid>
+
+
+
+
+
+
   );
 }
 
 
 
-  
